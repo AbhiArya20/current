@@ -1,6 +1,10 @@
 {
-  "extends": "@repo/typescript-config/react-library.json",
+  "extends": "@coderoom/typescript-config/react-library.json",
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@coderoom/ui": ["./src/*"]
+    },
     "outDir": "dist"
   },
   "include": ["src"],

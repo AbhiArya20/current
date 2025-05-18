@@ -1,0 +1,1 @@
+export { default } from "@coderoom/ui/postcss.config";
