@@ -1,6 +1,7 @@
 {
   "name": "current",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "turbo run build",
     "build:dry-run": "turbo run build --dry",
@@ -8,11 +9,18 @@
     "dev:docs": "turbo run dev --filter=docs",
     "dev:web": "turbo run dev --filter=web",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint:fix": "turbo run lint -- --fix",
+    "lint:web:fix": "turbo run lint --filter=web --fix",
+    "lint:docs:fix": "turbo run lint --filter=docs --fix",
+    "format": "prettier --write --ignore-unknown \"**/*\"",
+    "format:check": "prettier --check --ignore-unknown --debug-check \"**/*\"",
     "check-types": "turbo run check-types",
-    "upgrade": "pnpm up --recursive"
+    "upgrade": "pnpm up --recursive",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
     "prettier": "^3.6.2",
     "turbo": "^2.5.5",
     "typescript": "5.8.3"
