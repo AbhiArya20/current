@@ -10,7 +10,7 @@ import {
 } from "@current/ui/components/dropdown-menu";
 import { Button } from "@current/ui/components/button";
 
-export function ThemeSwitcherButton() {
+export function ThemeToggleButton() {
   const { setTheme } = useTheme();
 
   return (
