@@ -1,4 +1,6 @@
 {
+  "globalDependencies": [".env"],
+  "globalEnv": ["NEXT_PUBLIC_BACKEND_URL", "NEXT_PUBLIC_FRONTEND_URL"],
   "$schema": "https://turborepo.com/schema.json",
   "ui": "tui",
   "tasks": {
