@@ -7,6 +7,8 @@ const config = {
 
   "apps/docs/**/*.{ts,tsx,js,jsx}": () => "pnpm run lint:docs:fix",
 
+  // "packages/**/*.{ts,tsx,js,jsx}": () => "pnpm run lint:packages:fix",
+
   // Format JSON and YAML files
   "**/*": "prettier --write --ignore-unknown",
 };

@@ -1,7 +1,7 @@
 import { createEnv } from "@t3-oss/env-core";
 import { z } from "zod";
 
-const clientEnv = createEnv({
+export const clientEnv = createEnv({
   clientPrefix: "NEXT_PUBLIC_",
 
   emptyStringAsUndefined: true,
@@ -24,5 +24,3 @@ const clientEnv = createEnv({
 });
 
 export const validateClientEnv = () => clientEnv;
-
-export default clientEnv;

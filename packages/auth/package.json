@@ -1,0 +1,24 @@
+{
+  "name": "@current/auth",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./auth-client": "./src/auth-client.ts",
+    "./auth-server": "./src/auth-server.ts"
+  },
+  "scripts": {
+    "generate": "npx @better-auth/cli generate",
+    "migrate": "npx @better-auth/cli migrate"
+  },
+  "devDependencies": {
+    "@current/eslint-config": "workspace:*",
+    "@current/typescript-config": "workspace:*",
+    "@types/node": "^22.16.5"
+  },
+  "dependencies": {
+    "better-auth": "^1.3.4",
+    "@current/db": "workspace:*",
+    "@current/env": "workspace:*"
+  }
+}

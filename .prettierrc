@@ -1,1 +1,11 @@
-{}
+{
+  // "importTypeOrder": [
+  //   "NPMPackages",
+  //   "localImportsType",
+  //   "localImportsValue",
+  //   "localImports",
+  //   "all"
+  // ],
+  "tailwindStylesheet": "./packages/ui/src/styles/globals.css",
+  "plugins": ["prettier-plugin-tailwindcss", "prettier-plugin-sort-imports"]
+}

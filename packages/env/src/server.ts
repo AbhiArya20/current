@@ -1,7 +1,7 @@
 import { createEnv } from "@t3-oss/env-core";
 import { z } from "zod";
 
-const serverEnv = createEnv({
+export const serverEnv = createEnv({
   emptyStringAsUndefined: true,
 
   server: {
@@ -15,5 +15,3 @@ const serverEnv = createEnv({
 });
 
 export const validateServerEnv = () => serverEnv;
-
-export default serverEnv;

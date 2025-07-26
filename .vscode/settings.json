@@ -3,5 +3,23 @@
     {
       "mode": "auto"
     }
-  ]
+  ],
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    ".husky": true,
+    ".turbo": true,
+    ".vscode": true,
+    "packages/typescript-config": true,
+    "packages/eslint-config": true,
+    "pnpm-workspace.yaml": true,
+    "**/node_modules": true,
+    "pnpm-lock.yaml": true,
+    "**/.next": true,
+    "**/.turbo": true
+  },
+  "explorerExclude.backup": {}
 }

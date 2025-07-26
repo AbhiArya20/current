@@ -1,0 +1,38 @@
+{
+  "name": "@current/db",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "push": "npx drizzle-kit push",
+    "generate": "npx drizzle-kit generate",
+    "migrate": "npx drizzle-kit migrate",
+    "pull": "npx drizzle-kit pull",
+    "studio": "npx drizzle-kit studio",
+    "check": "npx drizzle-kit check",
+    "up": "npx drizzle-kit up",
+    "dev": "npx drizzle-kit studio",
+    "dev:config": "pnpm drizzle-kit push --config=drizzle-dev.drizzle.config",
+    "prod:config": "pnpm drizzle-kit push --config=drizzle-prod.drizzle.config",
+    "seed": "pnpm tsx src/seed/index.ts"
+  },
+  "exports": {
+    "./client": "./src/client/client.ts"
+  },
+  "devDependencies": {
+    "@current/eslint-config": "workspace:*",
+    "@current/typescript-config": "workspace:*",
+    "@types/node": "^22.16.5",
+    "@types/pg": "^8.15.4",
+    "drizzle-kit": "^0.31.4"
+  },
+  "dependencies": {
+    "@current/env": "workspace:*",
+    "drizzle-orm": "^0.44.3",
+    "drizzle-seed": "^0.3.1",
+    "drizzle-zod": "^0.8.2",
+    "pg": "^8.16.3",
+    "postgres": "^3.4.7",
+    "zod": "^3.25.1"
+  }
+}
