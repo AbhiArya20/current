@@ -10,7 +10,7 @@
     "**/.hg": true,
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
-    ".husky": true,
+    ".husky": false,
     ".turbo": true,
     ".vscode": true,
     "packages/typescript-config": true,
