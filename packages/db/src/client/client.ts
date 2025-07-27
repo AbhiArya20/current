@@ -1,6 +1,6 @@
 import { drizzle as drizzleNode } from "drizzle-orm/node-postgres";
 import { drizzle as drizzleJs } from "drizzle-orm/postgres-js";
-import * as schema from "@/schema/schema";
+import schema from "@current/db/schema";
 import postgres from "postgres";
 import { Pool } from "pg";
 

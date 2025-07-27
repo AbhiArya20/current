@@ -10,7 +10,17 @@
 // export default function Dashboard() {
 //   const [loading, setLoading] = useState(false);
 //   const router = useRouter();
-//   const { data: session, isPending, error, refetch } = useSession();
+//   const { data: session, isPending, error, refetch } = authClient.useSession();
+//   const {data: session, isPending, error, refetch} = await authClient.getSession();
+
+//   using react-query
+//   // const { data: session, isPending, error, refetch } = useQuery({
+//     queryKey: ["session"],
+//     queryFn: () => authClient.getSession(),
+//     refetchOnWindowFocus: false,
+//     refetchOnReconnect: false,
+//     refetchOnMount: false,
+//   });
 
 //   return (
 //     <div className="flex justify-center items-center h-screen ">

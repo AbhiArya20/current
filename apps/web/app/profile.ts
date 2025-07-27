@@ -35,7 +35,7 @@
 // // Functions to use in server side
 // const { headers, response } = await auth.api.signInEmail({
 //   returnHeaders: true,
-
+//   asResponse: true // returns a response object instead of data
 //   body: {
 //     email: "john@doe.com",
 //     password: "password",

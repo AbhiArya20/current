@@ -8,8 +8,7 @@
     "./auth-server": "./src/auth-server.ts"
   },
   "scripts": {
-    "generate": "npx @better-auth/cli generate",
-    "migrate": "npx @better-auth/cli migrate"
+    "generate": "npx @better-auth/cli generate"
   },
   "devDependencies": {
     "@current/eslint-config": "workspace:*",

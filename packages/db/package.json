@@ -11,13 +11,13 @@
     "studio": "npx drizzle-kit studio",
     "check": "npx drizzle-kit check",
     "up": "npx drizzle-kit up",
-    "dev": "npx drizzle-kit studio",
     "dev:config": "pnpm drizzle-kit push --config=drizzle-dev.drizzle.config",
     "prod:config": "pnpm drizzle-kit push --config=drizzle-prod.drizzle.config",
     "seed": "pnpm tsx src/seed/index.ts"
   },
   "exports": {
-    "./client": "./src/client/client.ts"
+    "./client": "./src/client/client.ts",
+    "./schema": "./src/schema/schema.ts"
   },
   "devDependencies": {
     "@current/eslint-config": "workspace:*",

@@ -3,12 +3,11 @@
   "compilerOptions": {
     "module": "preserve",
     "moduleResolution": "Bundler",
-    "types": ["node"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "drizzle.config.ts"],
   "exclude": ["node_modules", "dist"]
 }

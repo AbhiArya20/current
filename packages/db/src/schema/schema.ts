@@ -1,87 +1,88 @@
-import { integer, pgSchema, pgTable, timestamp, varchar } from "drizzle-orm/pg-core";
-import { createSelectSchema } from 'drizzle-zod';
+import {  pgSchema, timestamp, text, boolean, index } from "drizzle-orm/pg-core";
 
 export const currentSchema = pgSchema('current');
 
+const timestamps = {
+  createdAt: timestamp('created_at').notNull(),
+  updatedAt: timestamp('updated_at').notNull(),
+}
 
-// const createTable = currentSchema.tableCreator((name)=>)
-// export const users1 = customSchema.table('users', {
-//   id: integer()
-// })
+export const user = currentSchema.table("current_users", {
+  id: text("id").primaryKey(),
+  name: text('name').notNull(),
+  email: text('email').notNull().unique(),
+  emailVerified: boolean('email_verified').notNull(),
+  image: text('image'),
+  deleted_at: timestamp(),
+  ...timestamps,
+})
 
-// const timestamps = {
-//   updated_at: timestamp(),
-//   created_at: timestamp().defaultNow().notNull(),
-//   deleted_at: timestamp(),
-// }
+export const session = currentSchema.table(
+  'current_session',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    token: text('token').notNull().unique(),
+    expiresAt: timestamp('expires_at').notNull(),
+    ipAddress: text('ip_address'),
+    userAgent: text('user_agent'),
+    ...timestamps,
+  },
+  (t) => [
+    index('session_user_id_idx').on(t.userId),
+    index('session_expires_at_idx').on(t.expiresAt),
+  ],
+);
 
-// export const usersTable = pgTable("users", {
-//   id: integer().primaryKey().generatedAlwaysAsIdentity(),
-//   name: varchar({ length: 255 }).notNull(),
-//   age: integer().notNull(),
-//   email: varchar({ length: 255 }).notNull().unique(),
-//   ...timestamps,
-// });
+export const account = currentSchema.table(
+  'current_account',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    accountId: text('account_id').notNull(),
+    providerId: text('provider_id').notNull(),
+    accessToken: text('access_token'),
+    refreshToken: text('refresh_token'),
+    accessTokenExpiresAt: timestamp('access_token_expires_at'),
+    refreshTokenExpiresAt: timestamp('refresh_token_expires_at'),
+    // nickname: text("nickname"),
+    scope: text('scope'),
+    idToken: text('id_token'),
+    password: text('password'),
+    ...timestamps,
+  },
+  (t) => [
+    index('account_user_id_idx').on(t.userId),
+    index('account_provider_user_id_idx').on(t.providerId, t.userId),
+    index('account_expires_at_idx').on(t.accessTokenExpiresAt),
+  ],
+);
 
-
-// export const rolesEnum = pgEnum("roles", ["guest", "user", "admin"]);
-// export const users = table(
-//   "users",
-//   {
-//     id: t.integer().primaryKey().generatedAlwaysAsIdentity(),
-//     firstName: t.varchar("first_name", { length: 256 }),
-//     lastName: t.varchar("last_name", { length: 256 }),
-//     email: t.varchar().notNull(),
-//     invitee: t.integer().references((): AnyPgColumn => users.id),
-//     role: rolesEnum().default("guest"),
-//     value: t.integer().default(0),
-//   },
-//   (table) => [
-//     t.uniqueIndex("email_idx").on(table.email)
-//   ]
-// );
-// export const posts = table(
-//   "posts",
-//   {
-//     id: t.integer().primaryKey().generatedAlwaysAsIdentity(),
-//     slug: t.varchar().$default(() => generateUniqueString(16)),
-//     title: t.varchar({ length: 256 }),
-//     ownerId: t.integer("owner_id").references(() => users.id),
-//   },
-//   (table) => [
-//     t.uniqueIndex("slug_idx").on(table.slug),
-//     t.index("title_idx").on(table.title),
-//   ]
-// );
-// export const comments = table("comments", {
-//   id: t.integer().primaryKey().generatedAlwaysAsIdentity(),
-//   text: t.varchar({ length: 256 }),
-//   postId: t.integer("post_id").references(() => posts.id),
-//   ownerId: t.integer("owner_id").references(() => users.id),
-// });
-
-// function generateUniqueString(length: number = 12): string {
-//   const characters =
-//     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-//   let uniqueString = "";
-//   for (let i = 0; i < length; i++) {
-//     const randomIndex = Math.floor(Math.random() * characters.length);
-//     uniqueString += characters[randomIndex];
-//   }
-//   return uniqueString;
-// }
-
-
-
-
-
-
-// // const userSelectSchema = createSelectSchema(users, {
-// //   name: (schema) => schema.max(20), // Extends schema
-// //   bio: (schema) => schema.max(1000), // Extends schema before becoming nullable/optional
-// //   preferences: z.object({ theme: z.string() }) // Overwrites the field, including its nullability
-// // });
+export const verification = currentSchema.table(
+  'current_verification',
+  {
+    id: text('id').primaryKey(),
+    identifier: text('identifier').notNull(),
+    value: text('value').notNull(),
+    expiresAt: timestamp('expires_at').notNull(),
+    ...timestamps,
+  },
+  (t) => [
+    index('verification_identifier_idx').on(t.identifier),
+    index('verification_expires_at_idx').on(t.expiresAt),
+  ],
+);
 
 
-// export const userSelectSchema = createSelectSchema(users);
-// export type User = z.infer<typeof userSelectSchema>;
+const schema = {
+  user, 
+  session,
+  account,
+  verification
+}
+
+export default schema

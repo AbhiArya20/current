@@ -9,6 +9,12 @@ export const serverEnv = createEnv({
       error:
         "The environment variable DATABASE_URL is required and must be a valid POSTGRES URL.",
     }),
+    GOOGLE_CLIENT_ID: z.string({
+      error: "The environment variable GOOGLE_CLIENT_ID is required.",
+    }),
+    GOOGLE_CLIENT_SECRET: z.string({
+      error: "The environment variable GOOGLE_CLIENT_SECRET is required.",
+    }),
   },
 
   runtimeEnv: process.env,
