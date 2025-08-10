@@ -1,4 +1,4 @@
-import { SocialProviderList } from "better-auth/social-providers";
+import { SocialProviders } from "better-auth/social-providers";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { betterAuth, BetterAuthOptions } from "better-auth";
 import { serverEnv } from "@current/env/server";
@@ -16,12 +16,7 @@ function createAuthConfig(): BetterAuthOptions {
       schema: { schema },
     }),
 
-    socialProviders: {
-      google: {
-        clientId: serverEnv.GOOGLE_CLIENT_ID,
-        clientSecret: serverEnv.GOOGLE_CLIENT_SECRET,
-      },
-    },
+    socialProviders: getSocialMediaProviders(),
     user: {
       modelName: "current_users",
     },
@@ -37,7 +32,7 @@ function createAuthConfig(): BetterAuthOptions {
   };
 }
 
-function getSocialMediaProviders(): SocialProviderList {
+function getSocialMediaProviders(): SocialProviders {
   return {
     google: {
       clientId: serverEnv.GOOGLE_CLIENT_ID,
