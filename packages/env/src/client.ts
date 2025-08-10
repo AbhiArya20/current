@@ -7,14 +7,8 @@ export const clientEnv = createEnv({
   emptyStringAsUndefined: true,
 
   client: {
-    NEXT_PUBLIC_BACKEND_URL: z.url({
-      error:
-        "The environment variable NEXT_PUBLIC_BACKEND_URL is required and must be a valid URL.",
-    }),
-    NEXT_PUBLIC_FRONTEND_URL: z.url({
-      error:
-        "The environment variable NEXT_PUBLIC_FRONTEND_URL is required and must be a valid URL.",
-    }),
+    NEXT_PUBLIC_BACKEND_URL: z.url(),
+    NEXT_PUBLIC_FRONTEND_URL: z.url(),
   },
 
   runtimeEnv: {
