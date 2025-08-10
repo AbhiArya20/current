@@ -1,7 +1,7 @@
 "use client";
 
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import type { ComponentProps, HTMLAttributes, ReactElement } from "react";
-import { createContext, useContext, useEffect, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { Button } from "@current/ui/components/button";
 import { cn } from "@current/ui/lib/utils";
@@ -82,7 +82,10 @@ export type BranchMessagesProps = HTMLAttributes<HTMLDivElement>;
 
 export const BranchMessages = ({ children, ...props }: BranchMessagesProps) => {
   const { currentBranch, setBranches, branches } = useBranch();
-  const childrenArray = Array.isArray(children) ? children : [children];
+  const childrenArray = useMemo(
+    () => (Array.isArray(children) ? children : [children]),
+    [children],
+  );
 
   // Use useEffect to update branches when they change
   useEffect(() => {
