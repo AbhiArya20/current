@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "@current/ui/globals.css";
 import { ThemeProvider } from "@current/ui/components/theme-provider";
+import { Geist, Geist_Mono, Inter } from "next/font/google";
+import type { Metadata } from "next";
+import "@current/ui/globals.css";
 
 const geistSans = Geist({
   subsets: ["latin"],
@@ -11,6 +11,11 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
@@ -25,7 +30,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} font-sans`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

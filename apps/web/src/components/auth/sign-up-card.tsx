@@ -18,7 +18,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { toast } from "sonner";
 
-export default function SignUp() {
+export default function SignUpCard() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
