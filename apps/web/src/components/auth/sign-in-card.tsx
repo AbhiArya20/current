@@ -10,13 +10,14 @@ import {
 } from "@current/ui/components/card";
 import { createContext, ReactNode, useContext, useState } from "react";
 import { icons, coloredIcons } from "@/components/icons/icons";
-import { Separator } from "@current/ui/components/separator";
-import { Checkbox } from "@current/ui/components/checkbox";
+// import { Separator } from "@current/ui/components/separator";
 import { Button } from "@current/ui/components/button";
-import { Label } from "@current/ui/components/label";
-import { Input } from "@current/ui/components/input";
+import {
+  //  Key,
+
+  Loader2,
+} from "lucide-react";
 import { signIn } from "@current/auth/auth-client";
-import { Loader2, Key } from "lucide-react";
 import { cn } from "@current/ui/lib/utils";
 import Link from "next/link";
 
@@ -24,6 +25,7 @@ type SignInButtonProps = {
   title: string;
   provider: string;
   callbackURL: string;
+  isDialog?: boolean;
 };
 
 const socialProviders: SignInButtonProps[] = [
@@ -79,7 +81,12 @@ function useAuth() {
   return context;
 }
 
-function SocialButton({ title, provider, callbackURL }: SignInButtonProps) {
+function SocialButton({
+  title,
+  provider,
+  callbackURL,
+  isDialog,
+}: SignInButtonProps) {
   const { loading, selectedProvider, setLoading, setSelectedProvider } =
     useAuth();
 
@@ -95,6 +102,7 @@ function SocialButton({ title, provider, callbackURL }: SignInButtonProps) {
         socialProviders.length < 4
           ? "w-full justify-start"
           : "flex-grow justify-center min-w-12",
+        isDialog && "justify-center",
       )}
       disabled={loading}
       onClick={async () => {
@@ -130,7 +138,7 @@ function SocialButton({ title, provider, callbackURL }: SignInButtonProps) {
   );
 }
 
-function SocialButtonList() {
+function SocialButtonList({ isDialog }: { isDialog: boolean }) {
   return (
     <div
       className={cn(
@@ -145,6 +153,7 @@ function SocialButtonList() {
             title={provider.title}
             provider={provider.provider}
             callbackURL={provider.callbackURL}
+            isDialog={isDialog}
           />
         );
       })}
@@ -153,24 +162,24 @@ function SocialButtonList() {
 }
 
 type SignInCardProps = {
-  title?: string;
-  description?: string;
+  title: string;
+  description: string;
   mode?: "sign-in" | "sign-up";
+  isDialog?: boolean;
 };
 
 export default function SignInCard({
   title,
   description,
   mode = "sign-in",
+  isDialog = false,
 }: SignInCardProps) {
-  const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
+  // const { loading, selectedProvider, setLoading, setSelectedProvider } =
+  //   useAuth();
 
   return (
     <AuthProvider>
-      <Card className="max-w-sm w-full border-none">
+      <Card className={cn("max-w-sm w-full border-none", "max-w-md")}>
         <CardHeader className="text-center">
           <CardTitle className="text-xl sm:text-2xl font-medium">
             {title}
@@ -181,13 +190,15 @@ export default function SignInCard({
         </CardHeader>
         <CardContent>
           <div className="grid gap-4">
-            <SocialButtonList />
-            <div className="flex items-center gap-2">
-              <Separator className="w-auto data-[orientation=horizontal]:w-auto" />{" "}
-              OR{" "}
-              <Separator className="w-auto data-[orientation=horizontal]:w-auto" />
-            </div>
-            <div className="grid gap-2">
+            <SocialButtonList isDialog={isDialog} />
+            {/* <div className="flex items-center gap-2">
+              <Separator className=" max-w-full data-[orientation=horizontal]:max-w-full shrink" />
+              <span className="text-muted-foreground/60 text-xs font-medium">
+                OR
+              </span>
+              <Separator className=" max-w-full data-[orientation=horizontal]:max-w-full shrink" />
+            </div> */}
+            {/* <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
@@ -199,8 +210,8 @@ export default function SignInCard({
                 }}
                 value={email}
               />
-            </div>
-
+            </div> */}
+            {/* 
             <div className="grid gap-2">
               <div className="flex items-center">
                 <Label htmlFor="password">Password</Label>
@@ -220,9 +231,9 @@ export default function SignInCard({
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-            </div>
+            </div> */}
 
-            <div className="flex items-center gap-2">
+            {/* <div className="flex items-center gap-2">
               <Checkbox
                 id="remember"
                 onClick={() => {
@@ -230,9 +241,9 @@ export default function SignInCard({
                 }}
               />
               <Label htmlFor="remember">Remember me</Label>
-            </div>
+            </div> */}
 
-            <Button
+            {/* <Button
               type="submit"
               className="w-full"
               disabled={loading}
@@ -258,6 +269,25 @@ export default function SignInCard({
               ) : (
                 <p> Login </p>
               )}
+            </Button> */}
+
+            {/* <Button
+              variant="secondary"
+              disabled={loading}
+              className="gap-2"
+              onClick={async () => {
+                await signIn.passkey({
+                  onRequest: () => {
+                    setLoading(true);
+                  },
+                  onResponse: () => {
+                    setLoading(false);
+                  },
+                });
+              }}
+            >
+              <Key size={16} />
+              Sign-in with Passkey
             </Button>
 
             <Button
@@ -265,25 +295,80 @@ export default function SignInCard({
               disabled={loading}
               className="gap-2"
               onClick={async () => {
-                // await signIn.passkey({
-                //   onRequest: () => {
-                //     setLoading(true);
-                //   },
-                //   onResponse: () => {
-                //     setLoading(false);
-                //   },
-                // });
+                await signIn.passkey({
+                  onRequest: () => {
+                    setLoading(true);
+                  },
+                  onResponse: () => {
+                    setLoading(false);
+                  },
+                });
               }}
             >
               <Key size={16} />
-              Sign-in with Passkey
+              Sign in with email and password
             </Button>
+            <Button
+              variant="secondary"
+              disabled={loading}
+              className="gap-2"
+              onClick={async () => {
+                await signIn.passkey({
+                  onRequest: () => {
+                    setLoading(true);
+                  },
+                  onResponse: () => {
+                    setLoading(false);
+                  },
+                });
+              }}
+            >
+              <Key size={16} />
+              Sign in Magic Link
+            </Button>
+            <Button
+              variant="secondary"
+              disabled={loading}
+              className="gap-2"
+              onClick={async () => {
+                await signIn.passkey({
+                  onRequest: () => {
+                    setLoading(true);
+                  },
+                  onResponse: () => {
+                    setLoading(false);
+                  },
+                });
+              }}
+            >
+              <Key size={16} />
+              Sign in Single Sign-On (SSO)
+            </Button>
+            <Button
+              variant="secondary"
+              disabled={loading}
+              className="gap-2"
+              onClick={async () => {
+                await signIn.passkey({
+                  onRequest: () => {
+                    setLoading(true);
+                  },
+                  onResponse: () => {
+                    setLoading(false);
+                  },
+                });
+              }}
+            >
+              <Key size={16} />
+              Sign in with email OTP 
+            </Button>
+              */}
           </div>
         </CardContent>
         <CardFooter className="mt-6">
           <div className="space-y-4 text-center font-medium w-full">
             <p className=" text-xs text-muted-foreground/60 leading-relaxed">
-              By continuing you agree to our{" "}
+              By continuing, you agree to our{" "}
               <Link
                 href="/terms"
                 className="underline hover:text-blue-400 underline-offset-2"

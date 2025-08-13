@@ -1,15 +1,11 @@
-import SignUpCard from "@/components/auth/sign-up-card";
 import SignInCard from "@/components/auth/sign-in-card";
 import React from "react";
 
 export default function SignUp() {
-  const isEmailAuthEnabled = true;
-  return isEmailAuthEnabled ? (
-    <SignUpCard />
-  ) : (
+  return (
     <SignInCard
       title="Create an account"
-      description="Get started with Current today"
+      description="Sign up to save chats, sync, and unlock more features"
       mode="sign-up"
     />
   );

@@ -3,10 +3,12 @@
 import SignInCard from "@/components/auth/sign-in-card";
 
 export default function SignIn() {
+  const isAlreadySignedIn = false;
+
   return (
     <SignInCard
-      title="Welcome back"
-      description="Sign in to continue to Current"
+      title={isAlreadySignedIn ? "Welcome back" : "Welcome to Current"}
+      description="Sign in below to increase your message limits."
     />
   );
 }

@@ -1,0 +1,36 @@
+"use client";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@current/ui/components/dialog";
+import SignInCard from "@/components/auth/sign-in-card";
+import { useState } from "react";
+
+export default function SignInCornerDialog() {
+  const isAlreadySignedIn = false;
+
+  const title = isAlreadySignedIn ? "Welcome back" : "Welcome to Current";
+  const description = "Sign in below to increase your message limits.";
+
+  const [open, setOpen] = useState(true);
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen} modal={!open}>
+      <DialogContent
+        className="sm:max-w-xs top-full left-full -translate-[calc(100%+.5rem)] px-0"
+        onInteractOutside={(e) => e.preventDefault()}
+        onEscapeKeyDown={(e) => e.preventDefault()}
+      >
+        <DialogHeader className="sr-only">
+          <DialogTitle>{title}</DialogTitle>
+          <DialogDescription>{description}</DialogDescription>
+        </DialogHeader>
+        <SignInCard title={title} description={description} isDialog />
+      </DialogContent>
+    </Dialog>
+  );
+}
