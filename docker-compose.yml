@@ -1,8 +1,10 @@
 services:
+  # Database Service
   db:
     image: postgres:17
     container_name: current-db
     restart: unless-stopped
+    env_file: .env
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -16,7 +18,104 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - current-network
+
+  # Cache Service
+  cache:
+    image: valkey/valkey:latest
+    container_name: current-cache
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      VALKEY_USERNAME: ${VALKEY_USERNAME}
+      VALKEY_PASSWORD: ${VALKEY_PASSWORD}
+    ports:
+      - "6379:6379"
+    command:
+      [
+        "valkey-server",
+        "--requirepass",
+        "${VALKEY_PASSWORD}",
+        "--user",
+        "${VALKEY_USERNAME}",
+        "on",
+        "+@all",
+        "~*",
+        ">valkey",
+        "--appendonly",
+        "yes",
+      ]
+    volumes:
+      - valkey-data:/data
+    healthcheck:
+      test: ["CMD", "valkey-cli", "-a", "${VALKEY_PASSWORD}", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks:
+      - current-network
+
+  # Server Service
+  server:
+    build:
+      context: .
+      dockerfile: apps/server/Dockerfile
+      target: runner
+    container_name: current-server
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      PORT: ${SERVER_PORT:-1284}
+      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      # Valkey connection settings with username/password
+      VALKEY_HOST: ${VALKEY_HOST}
+      VALKEY_PORT: ${VALKEY_PORT}
+      VALKEY_USERNAME: ${VALKEY_USERNAME}
+      VALKEY_PASSWORD: ${VALKEY_PASSWORD}
+      # Connection URL format with username and password
+      VALKEY_URL: valkey://${VALKEY_USERNAME}:${VALKEY_PASSWORD}@${VALKEY_HOST}:${VALKEY_PORT}/0
+    ports:
+      - "1284:1284"
+    depends_on:
+      db:
+        condition: service_healthy
+      cache:
+        condition: service_healthy
+    networks:
+      - current-network
+
+  # Web Service
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      target: runner
+      args:
+        NEXT_PUBLIC_BACKEND_URL: ${NEXT_PUBLIC_BACKEND_URL}
+        NEXT_PUBLIC_FRONTEND_URL: ${NEXT_PUBLIC_FRONTEND_URL}
+    container_name: current-web
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_BACKEND_URL: ${NEXT_PUBLIC_BACKEND_URL}
+      NEXT_PUBLIC_FRONTEND_URL: ${NEXT_PUBLIC_FRONTEND_URL}
+    ports:
+      - "3000:3000"
+    depends_on:
+      server:
+        condition: service_started
+    networks:
+      - current-network
 
 volumes:
   postgres-data:
     name: current-db-data
+  valkey-data:
+    name: current-cache-data
+
+networks:
+  current-network:
+    driver: bridge
