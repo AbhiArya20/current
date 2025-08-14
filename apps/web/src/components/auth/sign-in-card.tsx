@@ -14,7 +14,6 @@ import { icons, coloredIcons } from "@/components/icons/icons";
 import { Button } from "@current/ui/components/button";
 import {
   //  Key,
-
   Loader2,
 } from "lucide-react";
 import { signIn } from "@current/auth/auth-client";
@@ -91,7 +90,7 @@ function SocialButton({
     useAuth();
 
   const Icon =
-    socialProviders.length < 4
+    socialProviders.length < 5
       ? icons[provider as unknown as keyof typeof icons]
       : coloredIcons[provider as unknown as keyof typeof coloredIcons];
   return (
@@ -99,7 +98,7 @@ function SocialButton({
       variant="outline"
       className={cn(
         "flex items-center h-12 text-sm bg-muted/50 rounded-xl border-none hover:bg-muted transition-all duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed gap-3 group cursor-pointer",
-        socialProviders.length < 4
+        socialProviders.length < 5
           ? "w-full justify-start"
           : "flex-grow justify-center min-w-12",
         isDialog && "justify-center",
@@ -129,7 +128,7 @@ function SocialButton({
       ) : (
         <Icon className="size-4" />
       )}
-      {socialProviders.length < 4 && (
+      {socialProviders.length < 5 && (
         <span className="text-foreground/70 group-hover:text-foreground transition-colors duration-300">
           {title}
         </span>
