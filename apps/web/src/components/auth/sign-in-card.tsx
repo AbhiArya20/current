@@ -178,7 +178,9 @@ export default function SignInCard({
 
   return (
     <AuthProvider>
-      <Card className={cn("max-w-sm w-full border-none", "max-w-md")}>
+      <Card
+        className={cn("max-w-sm w-full border-none shadow-none", "max-w-md")}
+      >
         <CardHeader className="text-center">
           <CardTitle className="text-xl sm:text-2xl font-medium">
             {title}

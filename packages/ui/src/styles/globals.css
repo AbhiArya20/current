@@ -4,6 +4,8 @@
 @source "../**/*.{ts,tsx}";
 
 @import "tw-animate-css";
+@plugin 'tailwind-scrollbar';
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 

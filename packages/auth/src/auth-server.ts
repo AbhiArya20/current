@@ -6,26 +6,6 @@ import { serverEnv } from "@current/env/server";
 import { createDb } from "@current/db/client";
 import schema from "@current/db/schema";
 
-export const authServer = betterAuth(createAuthConfig());
-
-function createAuthConfig(): BetterAuthOptions {
-  const { db } = createDb(serverEnv.DATABASE_URL);
-
-  return {
-    appName: "Current",
-    database: drizzleAdapter(db, {
-      provider: "pg",
-      schema: { schema },
-    }),
-    socialProviders: getSocialMediaProviders(serverEnv),
-    emailAndPassword: {
-      enabled: true,
-      async sendResetPassword(data, request) {},
-    },
-    plugins: [passkey()],
-  };
-}
-
 type ProviderConfig = {
   id: string;
   name: string;
@@ -76,3 +56,23 @@ function getSocialMediaProviders(env: typeof serverEnv): SocialProviders {
 
   return socialProviders;
 }
+
+function createAuthConfig(): BetterAuthOptions {
+  const { db } = createDb(serverEnv.DATABASE_URL);
+
+  return {
+    appName: "Current",
+    database: drizzleAdapter(db, {
+      provider: "pg",
+      schema: { schema },
+    }),
+    socialProviders: getSocialMediaProviders(serverEnv),
+    emailAndPassword: {
+      enabled: true,
+      async sendResetPassword(data, request) {},
+    },
+    plugins: [passkey()],
+  };
+}
+
+export const authServer = betterAuth(createAuthConfig());

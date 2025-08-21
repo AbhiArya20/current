@@ -26,11 +26,15 @@
     "db:dev:config": "dotenv -- pnpm --filter=@current/db dev:config",
     "db:prod:config": "dotenv -- pnpm --filter=@current/db prod:config",
     "db:seed": "dotenv -- pnpm --filter=@current/db seed",
-    "prepare": "husky"
+    "docker:up": "docker compose up -d",
+    "prepare": "husky",
+    "knip": "knip"
   },
   "devDependencies": {
+    "@types/node": "^22.16.5",
     "dotenv-cli": "^9.0.0",
     "husky": "^9.1.7",
+    "knip": "^5.62.0",
     "lint-staged": "^16.1.2",
     "prettier": "^3.6.2",
     "prettier-plugin-sort-imports": "^1.8.8",
