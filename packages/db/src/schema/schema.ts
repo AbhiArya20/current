@@ -7,7 +7,7 @@ const timestamps = {
   updatedAt: timestamp('updated_at').notNull(),
 }
 
-export const user = currentSchema.table("current_users", {
+export const user = currentSchema.table("users", {
   id: text("id").primaryKey(),
   name: text('name').notNull(),
   email: text('email').notNull().unique(),
@@ -18,7 +18,7 @@ export const user = currentSchema.table("current_users", {
 })
 
 export const session = currentSchema.table(
-  'current_session',
+  'session',
   {
     id: text('id').primaryKey(),
     userId: text('user_id')
@@ -37,7 +37,7 @@ export const session = currentSchema.table(
 );
 
 export const account = currentSchema.table(
-  'current_account',
+  'account',
   {
     id: text('id').primaryKey(),
     userId: text('user_id')
@@ -63,7 +63,7 @@ export const account = currentSchema.table(
 );
 
 export const verification = currentSchema.table(
-  'current_verification',
+  'verification',
   {
     id: text('id').primaryKey(),
     identifier: text('identifier').notNull(),

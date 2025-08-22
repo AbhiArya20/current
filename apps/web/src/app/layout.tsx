@@ -1,14 +1,8 @@
-import {
-  Geist,
-  Geist_Mono,
-  Inter,
-  Be_Vietnam_Pro,
-  Baumans,
-} from "next/font/google";
+import { Providers } from "@/components/providers/providers";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Geist, Geist_Mono, Inter } from "next/font/google";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Analytics } from "@vercel/analytics/react";
-import { Providers } from "./providers";
 import type { Metadata } from "next";
 import "@current/ui/globals.css";
 import { Toaster } from "sonner";
@@ -16,12 +10,20 @@ import { Viewport } from "next";
 
 const geistSans = Geist({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-geist-sans",
+  preload: true,
 });
 
 const geistMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
+  preload: true,
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -29,7 +31,6 @@ export const metadata: Metadata = {
   title: {
     default: "Current",
     template: "%s | Current",
-    absolute: "Current AI",
   },
   description: "",
   openGraph: {
@@ -51,30 +52,6 @@ export const viewport: Viewport = {
   ],
 };
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  preload: true,
-  weight: "variable",
-  display: "swap",
-});
-
-const beVietnamPro = Be_Vietnam_Pro({
-  subsets: ["latin"],
-  variable: "--font-be-vietnam-pro",
-  preload: true,
-  display: "swap",
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-});
-
-const baumans = Baumans({
-  subsets: ["latin"],
-  variable: "--font-baumans",
-  preload: true,
-  display: "swap",
-  weight: ["400"],
-});
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -83,15 +60,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${beVietnamPro.variable} ${baumans.variable}  ${geistSans.variable} ${geistMono.variable} ${inter.variable} font-sans antialiased`}
+        className={`${inter.variable} ${geistSans.variable} ${geistMono.variable} ${inter.variable} font-sans antialiased`}
       >
         <NuqsAdapter>
           <Providers>
-            <Toaster position="top-center" />
             {children}
+            <Toaster position="top-center" />
           </Providers>
         </NuqsAdapter>
-
         <Analytics />
         <SpeedInsights />
       </body>

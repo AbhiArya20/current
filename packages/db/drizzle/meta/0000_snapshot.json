@@ -1,11 +1,11 @@
 {
-  "id": "8ac4bac9-1952-4eba-a78c-cb2980879fcb",
+  "id": "7d5351ab-deb1-40db-8dd6-362230f27f8f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "current.current_account": {
-      "name": "current_account",
+    "current.account": {
+      "name": "account",
       "schema": "current",
       "columns": {
         "id": {
@@ -141,10 +141,10 @@
         }
       },
       "foreignKeys": {
-        "current_account_user_id_current_users_id_fk": {
-          "name": "current_account_user_id_current_users_id_fk",
-          "tableFrom": "current_account",
-          "tableTo": "current_users",
+        "account_user_id_users_id_fk": {
+          "name": "account_user_id_users_id_fk",
+          "tableFrom": "account",
+          "tableTo": "users",
           "schemaTo": "current",
           "columnsFrom": [
             "user_id"
@@ -162,8 +162,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "current.current_session": {
-      "name": "current_session",
+    "current.session": {
+      "name": "session",
       "schema": "current",
       "columns": {
         "id": {
@@ -248,10 +248,10 @@
         }
       },
       "foreignKeys": {
-        "current_session_user_id_current_users_id_fk": {
-          "name": "current_session_user_id_current_users_id_fk",
-          "tableFrom": "current_session",
-          "tableTo": "current_users",
+        "session_user_id_users_id_fk": {
+          "name": "session_user_id_users_id_fk",
+          "tableFrom": "session",
+          "tableTo": "users",
           "schemaTo": "current",
           "columnsFrom": [
             "user_id"
@@ -265,8 +265,8 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "current_session_token_unique": {
-          "name": "current_session_token_unique",
+        "session_token_unique": {
+          "name": "session_token_unique",
           "nullsNotDistinct": false,
           "columns": [
             "token"
@@ -277,8 +277,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "current.current_users": {
-      "name": "current_users",
+    "current.users": {
+      "name": "users",
       "schema": "current",
       "columns": {
         "id": {
@@ -334,8 +334,8 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "current_users_email_unique": {
-          "name": "current_users_email_unique",
+        "users_email_unique": {
+          "name": "users_email_unique",
           "nullsNotDistinct": false,
           "columns": [
             "email"
@@ -346,8 +346,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "current.current_verification": {
-      "name": "current_verification",
+    "current.verification": {
+      "name": "verification",
       "schema": "current",
       "columns": {
         "id": {

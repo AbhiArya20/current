@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@current/ui/components/dialog";
-import SignInCard from "@/components/auth/sign-in-card";
+import AuthCard from "@/components/auth/auth-card";
 import { useState } from "react";
 
 export default function SignInCornerDialog() {
@@ -21,7 +21,7 @@ export default function SignInCornerDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen} modal={!open}>
       <DialogContent
-        className="sm:max-w-xs top-full left-full -translate-[calc(100%+.5rem)] px-0"
+        className="sm:max-w-xs top-full left-full -translate-[calc(100%+.5rem)] px-4"
         onInteractOutside={(e) => e.preventDefault()}
         onEscapeKeyDown={(e) => e.preventDefault()}
       >
@@ -29,7 +29,7 @@ export default function SignInCornerDialog() {
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        <SignInCard title={title} description={description} isDialog />
+        <AuthCard title={title} description={description} isDialog />
       </DialogContent>
     </Dialog>
   );

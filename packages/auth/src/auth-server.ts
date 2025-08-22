@@ -25,6 +25,25 @@ const authProviders = (env: typeof serverEnv): ProviderConfig[] => [
     },
     required: true,
   },
+  {
+    id: "github",
+    name: "GitHub",
+    requiredEnvs: ["GITHUB_CLIENT_ID", "GITHUB_CLIENT_SECRET"],
+    config: {
+      clientId: env.GITHUB_CLIENT_ID,
+      clientSecret: env.GITHUB_CLIENT_SECRET,
+    },
+  },
+  {
+    id: "gitlab",
+    name: "GitLab",
+    requiredEnvs: ["GITLAB_CLIENT_ID", "GITLAB_CLIENT_SECRET"],
+    config: {
+      clientId: env.GITLAB_CLIENT_ID,
+      clientSecret: env.GITLAB_CLIENT_SECRET,
+      issuer: env.GITLAB_ISSUER,
+    },
+  },
 ];
 
 function isProviderEnabled(
@@ -64,7 +83,7 @@ function createAuthConfig(): BetterAuthOptions {
     appName: "Current",
     database: drizzleAdapter(db, {
       provider: "pg",
-      schema: { schema },
+      schema: schema,
     }),
     socialProviders: getSocialMediaProviders(serverEnv),
     emailAndPassword: {

@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@current/ui/components/dialog";
-import SignInCard from "@/components/auth/sign-in-card";
+import AuthCard from "@/components/auth/auth-card";
 import { useState } from "react";
 
 export function SignInFullPageDialog() {
@@ -24,7 +24,9 @@ export function SignInFullPageDialog() {
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        <SignInCard title={title} description={description} isDialog />
+        <div className="max-w-sm sm:px-6">
+          <AuthCard title={title} description={description} isDialog />
+        </div>
       </DialogContent>
     </Dialog>
   );

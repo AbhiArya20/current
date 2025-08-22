@@ -6,7 +6,6 @@ import { TooltipProvider } from "@current/ui/components/tooltip";
 import { ReactNode } from "react";
 import React from "react";
 
-// Create a client
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

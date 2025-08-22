@@ -87,6 +87,9 @@ importers:
       '@current/auth':
         specifier: workspace:*
         version: link:../../packages/auth
+      '@current/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
       '@current/env':
         specifier: workspace:*
         version: link:../../packages/env
@@ -123,6 +126,9 @@ importers:
       nuqs:
         specifier: ^2.4.3
         version: 2.4.3(next@15.4.3(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
+      pg:
+        specifier: ^8.16.3
+        version: 8.16.3
       react:
         specifier: ^19.1.0
         version: 19.1.0
@@ -198,6 +204,28 @@ importers:
       '@current/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+
+  packages/constants:
+    dependencies:
+      '@current/db':
+        specifier: workspace:*
+        version: link:../db
+      '@current/env':
+        specifier: workspace:*
+        version: link:../env
+      better-auth:
+        specifier: ^1.3.4
+        version: 1.3.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+    devDependencies:
+      '@current/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@current/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/node':
+        specifier: ^22.16.5
+        version: 22.17.2
 
   packages/db:
     dependencies:

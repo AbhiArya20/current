@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "turbo run build",
+    "build": "dotenv -- turbo run build",
     "build:dry-run": "turbo run build --dry",
     "dev": "turbo run dev",
     "dev:docs": "turbo run dev --filter=docs",
