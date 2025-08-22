@@ -3,15 +3,9 @@ export default async function PrivateLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // const session = await authServer.api.getSession({
-  //   headers: await headers(),
-  // });
-
-  // if (!session) {
-  //   redirect("/auth/sign-in");
-  // }
-
   return (
-    <div className="flex justify-center items-center h-screen">{children}</div>
+    <div className="flex justify-center items-center min-h-screen">
+      {children}
+    </div>
   );
 }

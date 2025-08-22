@@ -169,9 +169,6 @@ export default function AuthCard({
   mode = "sign-in",
   isDialog = false,
 }: AuthCardProps) {
-  // const { loading, selectedProvider, setLoading, setSelectedProvider } =
-  //   useAuth();
-
   return (
     <AuthProvider>
       <Card

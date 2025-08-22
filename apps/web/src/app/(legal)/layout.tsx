@@ -4,6 +4,6 @@ export default async function PublicLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex justify-center items-center h-screen">{children}</div>
+    <div className="flex flex-col items-center min-h-screen">{children}</div>
   );
 }
